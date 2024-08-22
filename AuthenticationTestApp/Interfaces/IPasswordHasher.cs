@@ -1,7 +1,6 @@
 ﻿namespace AuthenticationTestApp.Interfaces
 {
-    public interface IUserService
+    public interface IPasswordHasher
     {
-        
     }
 }
