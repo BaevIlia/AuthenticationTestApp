@@ -7,10 +7,12 @@ namespace AuthenticationTestApp.Services
     {
         private readonly IPasswordHasher _passwordHasher;
         private readonly IUserRepository _repository;
-        public UserService(IUserRepository repository, IPasswordHasher passwordHasher)
+        private readonly IJwtProviderService _jwtProviderService;
+        public UserService(IUserRepository repository, IPasswordHasher passwordHasher, IJwtProviderService jwtProviderService)
         {
             _repository = repository;
             _passwordHasher = passwordHasher;
+            _jwtProviderService = jwtProviderService;
         }
         public async Task Register(string userName, string email, string password) 
         {
@@ -29,7 +31,10 @@ namespace AuthenticationTestApp.Services
 
             if (!result)
                 throw new Exception("Failed to login");
-            
+
+            var token = _jwtProviderService.GenerateToken(user);
+
+            return token;
         }
     }
 }

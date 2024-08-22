@@ -1,4 +1,8 @@
 
+using AuthenticationTestApp.Interfaces;
+using AuthenticationTestApp.Repository;
+using AuthenticationTestApp.Services;
+
 namespace AuthenticationTestApp
 {
     public class Program
@@ -8,7 +12,9 @@ namespace AuthenticationTestApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddScoped<IJwtProviderService, JwtProviderService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<UserService>();
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
 

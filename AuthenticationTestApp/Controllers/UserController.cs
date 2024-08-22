@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AuthenticationTestApp.Dtos;
+using AuthenticationTestApp.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AuthenticationTestApp.Controllers
 {
@@ -12,9 +14,11 @@ namespace AuthenticationTestApp.Controllers
             return Ok();
         }
         [HttpPost("/login")]
-        public async Task<IActionResult> Login() 
+        public async Task<IActionResult> Login(LoginUserRequest request, UserService userService) 
         {
-            return Ok();
+            var token = await userService.Login(request.Email, request.Password);
+
+            return Ok(token);
         }
     }
 }
