@@ -8,15 +8,20 @@ namespace AuthenticationTestApp.Controllers
     [Route("/user")]
     public class UserController : ControllerBase
     {
+        private readonly UserService _userService;
+        public UserController(UserService userService)
+        {
+            _userService = userService;
+        }
         [HttpPost("/register")]
-        public async Task<IActionResult> Register() 
+        public async Task<IActionResult> Register(RegisterUserRequest request) 
         {
             return Ok();
         }
         [HttpPost("/login")]
-        public async Task<IActionResult> Login(LoginUserRequest request, UserService userService) 
+        public async Task<IActionResult> Login(LoginUserRequest request) 
         {
-            var token = await userService.Login(request.Email, request.Password);
+            var token = await _userService.Login(request.Email, request.Password);
 
             return Ok(token);
         }
