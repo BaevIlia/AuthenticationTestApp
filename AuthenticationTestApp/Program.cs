@@ -20,6 +20,7 @@ namespace AuthenticationTestApp
             builder.Services.AddScoped<IJwtProviderService, JwtProviderService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+            builder.Services.AddScoped<UserService>();
 
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();

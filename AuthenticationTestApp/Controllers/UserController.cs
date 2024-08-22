@@ -16,6 +16,7 @@ namespace AuthenticationTestApp.Controllers
         [HttpPost("/register")]
         public async Task<IActionResult> Register(RegisterUserRequest request) 
         {
+            await _userService.Register(request.UserName, request.Email, request.Password);
             return Ok();
         }
         [HttpPost("/login")]
