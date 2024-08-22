@@ -3,9 +3,9 @@
     public class UserEntity
     {
         public Guid Id { get; set; }
-        public string UserName { get; private set; }
-        public string PasswordHash { get; private set; }
-        public string Email { get; private set; }
+        public string UserName { get; set; }
+        public string PasswordHash { get; set; }
+        public string Email { get; set; }
 
     }
 }
