@@ -1,5 +1,6 @@
 ﻿using AuthenticationTestApp.Database;
 using AuthenticationTestApp.Database.Entities;
+using AuthenticationTestApp.Database.Enums;
 using AuthenticationTestApp.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,6 +36,23 @@ namespace AuthenticationTestApp.Repository
             //TODO: Плохая реализация, реализовать через Mapper
             User resultUser = User.Create(userEntity.Id, userEntity.UserName, userEntity.PasswordHash, userEntity.Email);
             return resultUser;
+        }
+
+        public async Task<HashSet<Permission>> GetUserPermissions(Guid userId) 
+        {
+            var roles = await _context.Users
+                .AsNoTracking()
+                .Include(u => u.Roles)
+                .ThenInclude(r => r.Permissions)
+                .Where(u => u.Id == userId)
+                .Select(u => u.Roles)
+                .ToListAsync();
+
+            return roles
+                .SelectMany(r => r)
+                .SelectMany(r => r.Permissions)
+                .Select(p => (Permission)p.Id)
+                .ToHashSet();
         }
     }
 }

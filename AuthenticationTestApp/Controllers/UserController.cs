@@ -12,7 +12,7 @@ namespace AuthenticationTestApp.Controllers
     {
         private readonly UserService _userService;
 
-    
+        
         public UserController(UserService userService)
         {
             _userService = userService;
@@ -39,7 +39,7 @@ namespace AuthenticationTestApp.Controllers
         }
 
         [HttpGet("/getAdmin")]
-        [Authorize("AdminPolicy")]
+        [Authorize("Read")]
         public async Task<IActionResult> SayAdmin() 
         {
             return Ok("Hello Admin!");

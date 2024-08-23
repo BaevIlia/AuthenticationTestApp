@@ -1,5 +1,7 @@
 
+using AuthenticationTestApp.Authentication;
 using AuthenticationTestApp.Database;
+using AuthenticationTestApp.Database.Enums;
 using AuthenticationTestApp.Extensions;
 using AuthenticationTestApp.Interfaces;
 using AuthenticationTestApp.Options;
@@ -32,7 +34,11 @@ namespace AuthenticationTestApp
             builder.Services.AddScoped<UserService>();
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Read", policy =>
+                    policy.AddRequirements(new PermissionRequirement([Permission.Read])));
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
