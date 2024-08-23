@@ -11,6 +11,8 @@ namespace AuthenticationTestApp.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
+
+    
         public UserController(UserService userService)
         {
             _userService = userService;
@@ -22,10 +24,12 @@ namespace AuthenticationTestApp.Controllers
             return Ok();
         }
         [HttpPost("/login")]
-        public async Task<IActionResult> Login(LoginUserRequest request, UserService userService, HttpContext context) 
+        public async Task<IActionResult> Login(LoginUserRequest request) 
         {
+            var pathBase = HttpContext.Request.PathBase;
+          
             var token = await _userService.Login(request.Email, request.Password);
-            context.Response.Cookies.Append("tasty-сookies", token);
+            HttpContext.Response.Cookies.Append("tastyCookies", token);
             return Ok(token);
         }
 

@@ -25,6 +25,15 @@ namespace AuthenticationTestApp.Extensions
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions!.SecretKey))
                     };
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            context.Token = context.Request.Cookies["tastyCookies"];
+
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
             services.AddAuthorization();
         }
