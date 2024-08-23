@@ -19,7 +19,7 @@ namespace AuthenticationTestApp.Database.Configurations
             builder.HasData(ParseRolePermission());
         }
 
-        private RolePermissionEntity[] ParseRolePermission() 
+        private List<RolePermissionEntity> ParseRolePermission() 
         {
             return _authorizationOptions.RolePermissions
                 .SelectMany(rp => rp.Permissions
@@ -27,7 +27,7 @@ namespace AuthenticationTestApp.Database.Configurations
                 {
                     RoleId = (int)Enum.Parse<Role>(rp.Role),
                     PermissionId = (int)Enum.Parse<Permission>(p)
-                })).ToArray();
+                })).ToList();
                     
         }
     }

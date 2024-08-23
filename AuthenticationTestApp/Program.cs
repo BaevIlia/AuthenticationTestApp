@@ -22,7 +22,10 @@ namespace AuthenticationTestApp
             builder.Services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
             builder.Services.Configure<AuthorizationOptions>(configuration.GetSection(nameof(AuthorizationOptions)));
             builder.Services.AddApiAuthentication(configuration);
-            builder.Services.AddDbContext<AuthTestDbContext>();
+            builder.Services.AddDbContext<AuthTestDbContext>(options =>
+            {
+                options.UseNpgsql(configuration.GetConnectionString(nameof(AuthTestDbContext)));
+            });
             builder.Services.AddScoped<IJwtProviderService, JwtProviderService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();

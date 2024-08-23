@@ -1,4 +1,5 @@
 ﻿using AuthenticationTestApp.Database;
+using AuthenticationTestApp.Database.Entities;
 using AuthenticationTestApp.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
