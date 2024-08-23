@@ -1,4 +1,5 @@
-﻿using AuthenticationTestApp.Dtos;
+﻿using AuthenticationTestApp.Database.Enums;
+using AuthenticationTestApp.Dtos;
 using AuthenticationTestApp.Extensions;
 using AuthenticationTestApp.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -39,8 +40,8 @@ namespace AuthenticationTestApp.Controllers
         }
 
         [HttpGet("/getAdmin")]
-        [Authorize("Read")]
-        public async Task<IActionResult> SayAdmin() 
+        [Authorize]
+        public async Task<IActionResult> SayAdmin()
         {
             return Ok("Hello Admin!");
         }

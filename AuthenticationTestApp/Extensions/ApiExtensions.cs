@@ -1,4 +1,6 @@
-﻿using AuthenticationTestApp.Options;
+﻿using AuthenticationTestApp.Authentication;
+using AuthenticationTestApp.Database.Enums;
+using AuthenticationTestApp.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -38,5 +40,7 @@ namespace AuthenticationTestApp.Extensions
             
 
         }
+
+    
     }
 }

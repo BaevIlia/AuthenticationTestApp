@@ -8,6 +8,7 @@ using AuthenticationTestApp.Options;
 using AuthenticationTestApp.Repository;
 using AuthenticationTestApp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -22,7 +23,7 @@ namespace AuthenticationTestApp
             var configuration = builder.Configuration;
             // Add services to the container.
             builder.Services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
-            builder.Services.Configure<AuthorizationOptions>(configuration.GetSection(nameof(AuthorizationOptions)));
+            builder.Services.Configure<Options.AuthorizationOptions>(configuration.GetSection(nameof(Options.AuthorizationOptions)));
             builder.Services.AddApiAuthentication(configuration);
             builder.Services.AddDbContext<AuthTestDbContext>(options =>
             {
@@ -34,11 +35,8 @@ namespace AuthenticationTestApp
             builder.Services.AddScoped<UserService>();
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Read", policy =>
-                    policy.AddRequirements(new PermissionRequirement([Permission.Read])));
-            });
+            builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+           
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -49,7 +47,7 @@ namespace AuthenticationTestApp
             }
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.MapControllers();
 
             app.Run();
