@@ -20,6 +20,7 @@ namespace AuthenticationTestApp
             var configuration = builder.Configuration;
             // Add services to the container.
             builder.Services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
+            builder.Services.Configure<AuthorizationOptions>(configuration.GetSection(nameof(AuthorizationOptions)));
             builder.Services.AddApiAuthentication(configuration);
             builder.Services.AddDbContext<AuthTestDbContext>();
             builder.Services.AddScoped<IJwtProviderService, JwtProviderService>();
