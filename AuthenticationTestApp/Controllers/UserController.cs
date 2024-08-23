@@ -25,7 +25,7 @@ namespace AuthenticationTestApp.Controllers
         public async Task<IActionResult> Login(LoginUserRequest request, UserService userService, HttpContext context) 
         {
             var token = await _userService.Login(request.Email, request.Password);
-            context.Response.Cookies.Append("tastyCookie", token);
+            context.Response.Cookies.Append("tasty-сookies", token);
             return Ok(token);
         }
 
