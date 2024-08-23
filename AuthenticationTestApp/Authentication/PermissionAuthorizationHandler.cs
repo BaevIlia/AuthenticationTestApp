@@ -1,4 +1,5 @@
 ﻿using AuthenticationTestApp.Classes;
+using AuthenticationTestApp.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 
@@ -11,7 +12,7 @@ namespace AuthenticationTestApp.Authentication
         {
             _serviceScopeFactory = serviceScopeFactory;
         }
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
+        protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
             var userId = context.User.Claims.FirstOrDefault
                 (
@@ -25,7 +26,14 @@ namespace AuthenticationTestApp.Authentication
 
             using var scope = _serviceScopeFactory.CreateScope();
 
-            var permissionService = scope.ServiceProvider.GetRequiredService<IPermissionService>
+            var permissionService = scope.ServiceProvider.GetRequiredService<IPermissionService>();
+
+            var permissions = await permissionService.GetPermissionsAsync(id);
+
+            if (permissions.Intersect(requirement.Permissions).Any())
+            {
+                context.Succeed(requirement);
+            }
         }
     }
 }

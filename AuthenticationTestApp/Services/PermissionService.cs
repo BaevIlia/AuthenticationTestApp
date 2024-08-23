@@ -3,7 +3,7 @@ using AuthenticationTestApp.Interfaces;
 
 namespace AuthenticationTestApp.Services
 {
-    public class PermissionService
+    public class PermissionService : IPermissionService
     {
         private readonly IUserRepository _userRepository;
 
