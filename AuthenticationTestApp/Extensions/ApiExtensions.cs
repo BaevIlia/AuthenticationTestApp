@@ -35,7 +35,14 @@ namespace AuthenticationTestApp.Extensions
                         }
                     };
                 });
-            services.AddAuthorization();
+            services.AddAuthorization(options => 
+            {
+                options.AddPolicy("AdminPolicy", policy =>
+                {
+                    policy.RequireClaim("Admin", "true");
+                });
+            });
+
         }
     }
 }

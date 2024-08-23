@@ -39,7 +39,7 @@ namespace AuthenticationTestApp.Controllers
         }
 
         [HttpGet("/getAdmin")]
-        [Authorize]
+        [Authorize("AdminPolicy")]
         public async Task<IActionResult> SayAdmin() 
         {
             return Ok("Hello Admin!");
