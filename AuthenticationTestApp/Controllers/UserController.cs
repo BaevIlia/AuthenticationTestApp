@@ -1,5 +1,7 @@
 ﻿using AuthenticationTestApp.Dtos;
+using AuthenticationTestApp.Extensions;
 using AuthenticationTestApp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthenticationTestApp.Controllers
@@ -20,11 +22,18 @@ namespace AuthenticationTestApp.Controllers
             return Ok();
         }
         [HttpPost("/login")]
-        public async Task<IActionResult> Login(LoginUserRequest request) 
+        public async Task<IActionResult> Login(LoginUserRequest request, UserService userService, HttpContext context) 
         {
             var token = await _userService.Login(request.Email, request.Password);
-
+            context.Response.Cookies.Append("tastyCookie", token);
             return Ok(token);
+        }
+
+        [HttpGet("/getHello")]
+        [Authorize]
+        public async Task<IActionResult> SayHello() 
+        {
+            return Ok("HelloUser");
         }
     }
 }
