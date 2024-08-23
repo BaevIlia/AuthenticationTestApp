@@ -18,16 +18,16 @@ namespace AuthenticationTestApp.Database.Configurations
             builder.HasKey(r => new { r.RoleId, r.PermissionId });
             builder.HasData(ParseRolePermission());
         }
-
-        private List<RolePermissionEntity> ParseRolePermission() 
+        //TODO: Не генерирует данные
+        private RolePermissionEntity[] ParseRolePermission() 
         {
             return _authorizationOptions.RolePermissions
-                .SelectMany(rp => rp.Permissions
+              .SelectMany(rp => rp.Permissions
                 .Select(p => new RolePermissionEntity
                 {
                     RoleId = (int)Enum.Parse<Role>(rp.Role),
                     PermissionId = (int)Enum.Parse<Permission>(p)
-                })).ToList();
+                })).ToArray();
                     
         }
     }

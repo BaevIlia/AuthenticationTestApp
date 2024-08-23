@@ -36,7 +36,7 @@ namespace AuthenticationTestApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PermissionEntity");
+                    b.ToTable("PermissionEntity", (string)null);
 
                     b.HasData(
                         new
@@ -75,7 +75,7 @@ namespace AuthenticationTestApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
 
                     b.HasData(
                         new
@@ -102,7 +102,7 @@ namespace AuthenticationTestApp.Migrations
 
                     b.HasIndex("PermissionId");
 
-                    b.ToTable("RolePermissionEntity");
+                    b.ToTable("RolePermissionEntity", (string)null);
                 });
 
             modelBuilder.Entity("AuthenticationTestApp.Database.Entities.UserEntity", b =>
@@ -125,7 +125,7 @@ namespace AuthenticationTestApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("AuthenticationTestApp.Database.Entities.UserRoleEntity", b =>
@@ -140,7 +140,7 @@ namespace AuthenticationTestApp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRoleEntity");
+                    b.ToTable("UserRoleEntity", (string)null);
                 });
 
             modelBuilder.Entity("AuthenticationTestApp.Database.Entities.RolePermissionEntity", b =>
