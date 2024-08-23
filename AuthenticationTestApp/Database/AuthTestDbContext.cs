@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AuthenticationTestApp.Database.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuthenticationTestApp.Database
 {

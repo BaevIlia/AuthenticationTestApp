@@ -41,6 +41,7 @@ namespace AuthenticationTestApp.Extensions
                 {
                     policy.RequireClaim("Admin", "true");
                 });
+               
             });
 
         }
