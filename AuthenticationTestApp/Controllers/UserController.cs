@@ -25,9 +25,7 @@ namespace AuthenticationTestApp.Controllers
         }
         [HttpPost("/login")]
         public async Task<IActionResult> Login(LoginUserRequest request) 
-        {
-            var pathBase = HttpContext.Request.PathBase;
-          
+        { 
             var token = await _userService.Login(request.Email, request.Password);
             HttpContext.Response.Cookies.Append("tastyCookies", token);
             return Ok(token);
@@ -38,6 +36,13 @@ namespace AuthenticationTestApp.Controllers
         public async Task<IActionResult> SayHello() 
         {
             return Ok("HelloUser");
+        }
+
+        [HttpGet("/getAdmin")]
+        [Authorize]
+        public async Task<IActionResult> SayAdmin() 
+        {
+            return Ok("Hello Admin!");
         }
     }
 }
